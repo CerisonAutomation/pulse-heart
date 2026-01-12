@@ -13,7 +13,11 @@ import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
-export function ProfileTab() {
+interface ProfileTabProps {
+  onSignOut?: () => void;
+}
+
+export function ProfileTab({ onSignOut }: ProfileTabProps) {
   const [isEditing, setIsEditing] = useState(false);
   const profile = currentUserProfile;
   const stats = mockUserStats;
@@ -245,6 +249,7 @@ export function ProfileTab() {
         <Button 
           variant="ghost" 
           className="w-full mt-4 text-destructive hover:text-destructive hover:bg-destructive/10"
+          onClick={onSignOut}
         >
           <LogOut className="w-4 h-4 mr-2" />
           Sign Out
