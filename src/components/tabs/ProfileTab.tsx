@@ -11,6 +11,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { SubscriptionPlans } from '@/components/SubscriptionPlans';
 import { cn } from '@/lib/utils';
 
 interface ProfileTabProps {
@@ -19,15 +21,16 @@ interface ProfileTabProps {
 
 export function ProfileTab({ onSignOut }: ProfileTabProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [showSubscription, setShowSubscription] = useState(false);
   const profile = currentUserProfile;
   const stats = mockUserStats;
 
   const menuItems = [
-    { icon: Bell, label: 'Notifications', badge: 3 },
-    { icon: Shield, label: 'Privacy & Security' },
-    { icon: CreditCard, label: 'Subscription', badge: 'PRO' },
-    { icon: HelpCircle, label: 'Help & Support' },
-    { icon: Settings, label: 'Settings' },
+    { icon: Bell, label: 'Notifications', badge: 3, action: () => {} },
+    { icon: Shield, label: 'Privacy & Security', action: () => {} },
+    { icon: CreditCard, label: 'Subscription', badge: 'PRO', action: () => setShowSubscription(true) },
+    { icon: HelpCircle, label: 'Help & Support', action: () => {} },
+    { icon: Settings, label: 'Settings', action: () => {} },
   ];
 
   return (
@@ -218,6 +221,7 @@ export function ProfileTab({ onSignOut }: ProfileTabProps) {
           {menuItems.map((item, index) => (
             <button
               key={item.label}
+              onClick={item.action}
               className={cn(
                 "w-full flex items-center justify-between p-4 hover:bg-secondary/50 transition-colors",
                 index !== menuItems.length - 1 && "border-b border-border/50"
@@ -244,6 +248,13 @@ export function ProfileTab({ onSignOut }: ProfileTabProps) {
             </button>
           ))}
         </motion.div>
+
+        {/* Subscription Dialog */}
+        <Dialog open={showSubscription} onOpenChange={setShowSubscription}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <SubscriptionPlans onClose={() => setShowSubscription(false)} />
+          </DialogContent>
+        </Dialog>
 
         {/* Logout */}
         <Button 
