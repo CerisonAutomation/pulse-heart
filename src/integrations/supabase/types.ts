@@ -309,6 +309,84 @@ export type Database = {
         }
         Relationships: []
       }
+      gdpr_consent_records: {
+        Row: {
+          consent_given: boolean
+          consent_type: string
+          consent_version: string | null
+          given_at: string | null
+          id: string
+          ip_address: unknown
+          user_agent: string | null
+          user_id: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          consent_given: boolean
+          consent_type: string
+          consent_version?: string | null
+          given_at?: string | null
+          id?: string
+          ip_address?: unknown
+          user_agent?: string | null
+          user_id: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          consent_given?: boolean
+          consent_type?: string
+          consent_version?: string | null
+          given_at?: string | null
+          id?: string
+          ip_address?: unknown
+          user_agent?: string | null
+          user_id?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: []
+      }
+      gdpr_data_requests: {
+        Row: {
+          download_expires_at: string | null
+          download_url: string | null
+          id: string
+          notes: string | null
+          processed_at: string | null
+          processed_by: string | null
+          request_type: string
+          requested_at: string | null
+          scheduled_deletion_at: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          download_expires_at?: string | null
+          download_url?: string | null
+          id?: string
+          notes?: string | null
+          processed_at?: string | null
+          processed_by?: string | null
+          request_type: string
+          requested_at?: string | null
+          scheduled_deletion_at?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          download_expires_at?: string | null
+          download_url?: string | null
+          id?: string
+          notes?: string | null
+          processed_at?: string | null
+          processed_by?: string | null
+          request_type?: string
+          requested_at?: string | null
+          scheduled_deletion_at?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       matches: {
         Row: {
           id: string
@@ -617,17 +695,25 @@ export type Database = {
       }
       profiles: {
         Row: {
+          account_deletion_requested_at: string | null
           age: number | null
+          age_verified: boolean | null
+          age_verified_at: string | null
           avatar_url: string | null
           bio: string | null
           city: string | null
           country: string | null
           created_at: string | null
+          data_processing_consent: boolean | null
+          date_of_birth: string | null
           display_name: string | null
           favorites_count: number | null
+          gdpr_consent_date: string | null
           height: number | null
           hourly_rate: number | null
           id: string
+          id_verified: boolean | null
+          id_verified_at: string | null
           interests: string[] | null
           is_available_now: boolean | null
           is_online: boolean | null
@@ -636,6 +722,11 @@ export type Database = {
           latitude: number | null
           longitude: number | null
           looking_for: string[] | null
+          marketing_consent: boolean | null
+          phone_verified: boolean | null
+          phone_verified_at: string | null
+          photo_verified: boolean | null
+          photo_verified_at: string | null
           rating: number | null
           tribes: string[] | null
           updated_at: string | null
@@ -644,17 +735,25 @@ export type Database = {
           weight: number | null
         }
         Insert: {
+          account_deletion_requested_at?: string | null
           age?: number | null
+          age_verified?: boolean | null
+          age_verified_at?: string | null
           avatar_url?: string | null
           bio?: string | null
           city?: string | null
           country?: string | null
           created_at?: string | null
+          data_processing_consent?: boolean | null
+          date_of_birth?: string | null
           display_name?: string | null
           favorites_count?: number | null
+          gdpr_consent_date?: string | null
           height?: number | null
           hourly_rate?: number | null
           id?: string
+          id_verified?: boolean | null
+          id_verified_at?: string | null
           interests?: string[] | null
           is_available_now?: boolean | null
           is_online?: boolean | null
@@ -663,6 +762,11 @@ export type Database = {
           latitude?: number | null
           longitude?: number | null
           looking_for?: string[] | null
+          marketing_consent?: boolean | null
+          phone_verified?: boolean | null
+          phone_verified_at?: string | null
+          photo_verified?: boolean | null
+          photo_verified_at?: string | null
           rating?: number | null
           tribes?: string[] | null
           updated_at?: string | null
@@ -671,17 +775,25 @@ export type Database = {
           weight?: number | null
         }
         Update: {
+          account_deletion_requested_at?: string | null
           age?: number | null
+          age_verified?: boolean | null
+          age_verified_at?: string | null
           avatar_url?: string | null
           bio?: string | null
           city?: string | null
           country?: string | null
           created_at?: string | null
+          data_processing_consent?: boolean | null
+          date_of_birth?: string | null
           display_name?: string | null
           favorites_count?: number | null
+          gdpr_consent_date?: string | null
           height?: number | null
           hourly_rate?: number | null
           id?: string
+          id_verified?: boolean | null
+          id_verified_at?: string | null
           interests?: string[] | null
           is_available_now?: boolean | null
           is_online?: boolean | null
@@ -690,6 +802,11 @@ export type Database = {
           latitude?: number | null
           longitude?: number | null
           looking_for?: string[] | null
+          marketing_consent?: boolean | null
+          phone_verified?: boolean | null
+          phone_verified_at?: string | null
+          photo_verified?: boolean | null
+          photo_verified_at?: string | null
           rating?: number | null
           tribes?: string[] | null
           updated_at?: string | null
@@ -813,6 +930,83 @@ export type Database = {
           stripe_subscription_id?: string | null
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      verification_documents: {
+        Row: {
+          deleted_at: string | null
+          document_type: string
+          id: string
+          request_id: string
+          storage_path: string
+          uploaded_at: string | null
+        }
+        Insert: {
+          deleted_at?: string | null
+          document_type: string
+          id?: string
+          request_id: string
+          storage_path: string
+          uploaded_at?: string | null
+        }
+        Update: {
+          deleted_at?: string | null
+          document_type?: string
+          id?: string
+          request_id?: string
+          storage_path?: string
+          uploaded_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "verification_documents_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "verification_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      verification_requests: {
+        Row: {
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          metadata: Json | null
+          reviewed_at: string | null
+          reviewer_id: string | null
+          reviewer_notes: string | null
+          status: string | null
+          submitted_at: string | null
+          user_id: string
+          verification_type: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          metadata?: Json | null
+          reviewed_at?: string | null
+          reviewer_id?: string | null
+          reviewer_notes?: string | null
+          status?: string | null
+          submitted_at?: string | null
+          user_id: string
+          verification_type: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          metadata?: Json | null
+          reviewed_at?: string | null
+          reviewer_id?: string | null
+          reviewer_notes?: string | null
+          status?: string | null
+          submitted_at?: string | null
+          user_id?: string
+          verification_type?: string
         }
         Relationships: []
       }
