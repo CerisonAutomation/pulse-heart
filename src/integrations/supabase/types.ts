@@ -196,6 +196,98 @@ export type Database = {
           },
         ]
       }
+      event_attendees: {
+        Row: {
+          event_id: string
+          id: string
+          joined_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          event_id: string
+          id?: string
+          joined_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          event_id?: string
+          id?: string
+          joined_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_attendees_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          cover_image: string | null
+          created_at: string | null
+          description: string | null
+          end_time: string | null
+          event_date: string
+          event_type: string
+          host_id: string
+          id: string
+          is_premium_only: boolean | null
+          is_public: boolean | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          max_attendees: number | null
+          start_time: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          cover_image?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date: string
+          event_type?: string
+          host_id: string
+          id?: string
+          is_premium_only?: boolean | null
+          is_public?: boolean | null
+          latitude?: number | null
+          location: string
+          longitude?: number | null
+          max_attendees?: number | null
+          start_time: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          cover_image?: string | null
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string
+          event_type?: string
+          host_id?: string
+          id?: string
+          is_premium_only?: boolean | null
+          is_public?: boolean | null
+          latitude?: number | null
+          location?: string
+          longitude?: number | null
+          max_attendees?: number | null
+          start_time?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       favorites: {
         Row: {
           created_at: string | null
@@ -235,6 +327,42 @@ export type Database = {
           matched_at?: string | null
           user_one?: string
           user_two?: string
+        }
+        Relationships: []
+      }
+      meet_now: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: string
+          latitude: number
+          longitude: number
+          message: string | null
+          status: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          latitude: number
+          longitude: number
+          message?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          message?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -346,6 +474,98 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      parties: {
+        Row: {
+          cover_image: string | null
+          created_at: string | null
+          description: string | null
+          dress_code: string | null
+          end_time: string | null
+          host_id: string
+          id: string
+          is_active: boolean | null
+          latitude: number
+          location: string
+          longitude: number
+          max_guests: number | null
+          party_type: string
+          start_time: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          cover_image?: string | null
+          created_at?: string | null
+          description?: string | null
+          dress_code?: string | null
+          end_time?: string | null
+          host_id: string
+          id?: string
+          is_active?: boolean | null
+          latitude: number
+          location: string
+          longitude: number
+          max_guests?: number | null
+          party_type?: string
+          start_time: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          cover_image?: string | null
+          created_at?: string | null
+          description?: string | null
+          dress_code?: string | null
+          end_time?: string | null
+          host_id?: string
+          id?: string
+          is_active?: boolean | null
+          latitude?: number
+          location?: string
+          longitude?: number
+          max_guests?: number | null
+          party_type?: string
+          start_time?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      party_rsvps: {
+        Row: {
+          created_at: string | null
+          id: string
+          message: string | null
+          party_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          message?: string | null
+          party_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          message?: string | null
+          party_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "party_rsvps_party_id_fkey"
+            columns: ["party_id"]
+            isOneToOne: false
+            referencedRelation: "parties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profile_photos: {
         Row: {

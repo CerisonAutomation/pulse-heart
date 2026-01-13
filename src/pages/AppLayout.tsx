@@ -5,9 +5,11 @@ import { BottomNav } from '@/components/ui/BottomNav';
 import { ExploreTab } from '@/components/tabs/ExploreTab';
 import { MessagesTab } from '@/components/tabs/MessagesTab';
 import { FavoritesTab } from '@/components/tabs/FavoritesTab';
-import { BookingsTab } from '@/components/tabs/BookingsTab';
+import { EventsTab } from '@/components/tabs/EventsTab';
 import { ProfileTab } from '@/components/tabs/ProfileTab';
+import { PartyMap } from '@/components/PartyMap';
 import { AIFloatingButton } from '@/components/AIFloatingButton';
+import { NotificationsPanel } from '@/components/NotificationsPanel';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useToast } from '@/hooks/use-toast';
@@ -24,7 +26,7 @@ const AppLayout = () => {
     const payment = searchParams.get('payment');
     if (payment === 'success') {
       toast({
-        title: 'Payment Successful!',
+        title: 'Payment Successful! 🎉',
         description: 'Your subscription is now active. Enjoy premium features!',
       });
     } else if (payment === 'cancelled') {
@@ -62,6 +64,14 @@ const AppLayout = () => {
             onStartChat={handleStartChat}
           />
         );
+      case 'map':
+        return (
+          <PartyMap onViewProfile={handleViewProfile} />
+        );
+      case 'events':
+        return (
+          <EventsTab onViewProfile={handleViewProfile} />
+        );
       case 'messages':
         return (
           <MessagesTab 
@@ -74,12 +84,6 @@ const AppLayout = () => {
             favorites={favoriteIds}
             onToggleFavorite={handleToggleFavorite}
             onStartChat={handleStartChat}
-            onViewProfile={handleViewProfile}
-          />
-        );
-      case 'bookings':
-        return (
-          <BookingsTab 
             onViewProfile={handleViewProfile}
           />
         );
