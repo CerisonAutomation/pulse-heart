@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
+import { Json } from '@/integrations/supabase/types';
 
 export type VerificationType = 'age' | 'photo' | 'id' | 'video' | 'phone';
 export type VerificationStatus = 'pending' | 'approved' | 'rejected' | 'expired';
@@ -67,7 +68,7 @@ export const useVerification = () => {
         .insert([{
           user_id: user.id,
           verification_type: type,
-          metadata: metadata || {},
+          metadata: (metadata || {}) as Json,
         }])
         .select()
         .single();
@@ -159,7 +160,7 @@ export const useVerification = () => {
           user_id: user.id,
           verification_type: 'age',
           status: 'approved',
-          metadata: { declared_age: age, declared_dob: dateOfBirth.toISOString() },
+          metadata: { declared_age: age, declared_dob: dateOfBirth.toISOString() } as Json,
           reviewed_at: new Date().toISOString(),
         }])
         .select()
