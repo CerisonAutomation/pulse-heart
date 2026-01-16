@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { Construction } from 'lucide-react';
 import { GlobalHeader } from '@/components/marketing/GlobalHeader';
@@ -8,13 +8,13 @@ interface StubPageProps {
   title: string;
 }
 
-const StubPage = ({ title }: StubPageProps) => {
+const StubPage = forwardRef<HTMLDivElement, StubPageProps>(({ title }, ref) => {
   useEffect(() => {
     document.title = `FIND YOUR KING — ${title}`;
   }, [title]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div ref={ref} className="min-h-screen bg-white flex flex-col">
       <GlobalHeader />
 
       <main className="flex-1 pt-16 flex items-center justify-center px-4">
@@ -41,6 +41,8 @@ const StubPage = ({ title }: StubPageProps) => {
       <GlobalFooter />
     </div>
   );
-};
+});
+
+StubPage.displayName = 'StubPage';
 
 export default StubPage;
